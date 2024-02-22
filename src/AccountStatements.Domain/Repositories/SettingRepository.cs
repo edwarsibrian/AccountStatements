@@ -1,23 +1,30 @@
 ﻿using AccountStatements.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace AccountStatements.Domain.Services
+namespace AccountStatements.Domain.Repositories
 {
-    public class SettingService : ISettingService
+    public class SettingRepository : ISettingRepository
     {
         private AccountStatementsContext _context;
 
-        public SettingService(AccountStatementsContext context)
+        public SettingRepository(AccountStatementsContext context)
         {
             _context = context;
         }
 
         public async Task<Setting> Create(Setting setting)
         {
-            await _context.AddAsync(setting);
-            int isSaved = await _context.SaveChangesAsync();
+            var existSetting = await _context.Settings.FirstOrDefaultAsync();
+            if (existSetting != null)
+            {
+                throw new Exception("Setting has already been established");
+            }
 
-            return setting;
+            var newSetting = await _context.AddAsync(setting);
+            
+            await _context.SaveChangesAsync();
+
+            return newSetting.Entity;
         }       
 
         public async Task<Setting> Get()

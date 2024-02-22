@@ -18,6 +18,11 @@ namespace AccountStatements.Domain
         public DbSet<Charge> Charges { get; set; }
         public DbSet<Setting> Settings { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseInMemoryDatabase(databaseName: "AccountsStatements");
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Charge>()
