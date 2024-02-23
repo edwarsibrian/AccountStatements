@@ -10,6 +10,7 @@ namespace AccountStatements.API.Configurations
         {
             //Scope
             services.AddScoped<ISettingService, SettingService>();
+            services.AddScoped<ICreditCardService, CreditCardService>();
 
             //Singlenton
             services.AddSingleton<IApplicationConfigManager, ApplicationConfigManager>();
