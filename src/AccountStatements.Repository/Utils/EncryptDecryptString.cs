@@ -25,6 +25,7 @@ namespace AccountStatements.Repository.Utils
 
             using (var aesAlg = Aes.Create())
             {
+                aesAlg.Padding = PaddingMode.PKCS7;
                 using (var encryptor = aesAlg.CreateEncryptor(key, aesAlg.IV))
                 {
                     using (var msEncrypt = new MemoryStream())
@@ -63,6 +64,7 @@ namespace AccountStatements.Repository.Utils
 
             using (var aesAlg = Aes.Create())
             {
+                aesAlg.Padding = PaddingMode.Zeros;
                 using (var decryptor = aesAlg.CreateDecryptor(key, iv))
                 {
                     string result;
