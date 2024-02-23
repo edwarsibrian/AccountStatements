@@ -1,16 +1,13 @@
+using AccountStatements.API.Configurations;
 using AccountStatements.Domain.Configurations;
 using AccountStatements.Domain.Configurations.Middleware;
 using AccountStatements.Domain.Configurations.PipelineBehaviors;
 using AccountStatements.Domain.Configurations.Validations;
 using AccountStatements.Domain.Handlers;
 using AccountStatements.Repository;
-using AccountStatements.Repository.Interfaces;
-using AccountStatements.Repository.Services;
-using AccountStatements.Repository.Utils;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +27,6 @@ builder.Services.AddMediatR(cfg =>
 });
 
 //Add FluentValidation
-//builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddValidatorsFromAssemblyContaining<CreateSettingCommandValidator>(); // register validators
 builder.Services.AddFluentValidationAutoValidation(); // the same old MVC pipeline behavior
 builder.Services.AddFluentValidationClientsideAdapters(); // for client side
@@ -41,13 +37,8 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 builder.Services.AddDbContextFactory<AccountStatementsContext>(options =>
     options.UseInMemoryDatabase(databaseName: "AccountsStatements"));
-//builder.Services.AddDbContextFactory<AccountStatementsContext>(opt =>
-//    opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AccountsStatements"));
 
-builder.Services.AddScoped<ISettingService, SettingService>();
-builder.Services.AddSingleton<IApplicationConfigManager, ApplicationConfigManager>();
-builder.Services.AddSingleton<IEncryptDecryptString, EncryptDecryptString>();
-
+builder.Services.AddDependencyInjection();
 
 var app = builder.Build();
 
