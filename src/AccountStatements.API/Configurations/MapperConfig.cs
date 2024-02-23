@@ -9,6 +9,7 @@ namespace AccountStatements.Domain.Configurations
         public MapperConfig()
         {
             CreateMap<CreateSettingCommand, Setting>();
+            CreateMap<UpdateSettingCommand, Setting>();
         }
     }
 }

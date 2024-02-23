@@ -6,7 +6,7 @@ namespace AccountStatements.Repository.Services
 {
     public class SettingService : ISettingService
     {
-        private AccountStatementsContext _context;
+        private readonly AccountStatementsContext _context;
 
         public SettingService(AccountStatementsContext context)
         {
@@ -33,17 +33,16 @@ namespace AccountStatements.Repository.Services
             return await _context.Settings.FirstOrDefaultAsync();
         }
 
-        public async Task<bool> Update(int id, decimal interestPct, decimal minBalancePct)
+        public async Task<bool> Update(Setting setting)
         {
-            var setting = await _context.Settings.FirstOrDefaultAsync(s => s.Id == id);
+            var settingDb = await _context.Settings.FirstOrDefaultAsync(s => s.Id == setting.Id);
 
-            if (setting == null)
+            if (!await _context.Settings.AnyAsync(s => s.Id == setting.Id))
             {
                 throw new Exception("Setting id invalid");
             }
 
-            setting.InterestPct = interestPct;
-            setting.MinBalancePct = minBalancePct;
+            _context.Update(setting);
 
             return await _context.SaveChangesAsync() > 0;
         }

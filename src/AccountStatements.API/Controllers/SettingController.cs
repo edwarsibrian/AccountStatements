@@ -30,5 +30,11 @@ namespace AccountStatements.Domain.Controllers
         {
             return await _mediator.Send(command);
         }
+
+        [HttpPut]
+        public async Task<bool>UpdateSetting(UpdateSettingCommand command)
+        {
+            return await _mediator.Send(command);
+        }
     }
 }
