@@ -26,7 +26,6 @@ namespace AccountStatements.Repository
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseInMemoryDatabase(databaseName: "AccountsStatements");
-            //optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AccountsStatements");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,38 +38,7 @@ namespace AccountStatements.Repository
             modelBuilder.Entity<CreditCard>()
                 .HasOne(c => c.Holder)
                 .WithMany(c => c.CreditCards)
-                .HasForeignKey(c => c.HolderId);
-
-
-            //Seed Data
-            modelBuilder.Entity<Holder>().HasData(
-                new Holder
-                {
-                    Id = 1,
-                    Name = "Edwar Morales"
-                },
-                new Holder
-                {
-                    Id = 2,
-                    Name = "Juan Perez"
-                });
-            modelBuilder.Entity<CreditCard>().HasData(
-                new CreditCard
-                {
-                    Id = 1,
-                    HolderId = 1,
-                    Number = _encryptDecryptString.EncryptString("1234854796328951"),
-                    CreditLimit = 500,
-                    AvailableBalance = 500
-                },
-                new CreditCard
-                {
-                    Id = 2,
-                    HolderId = 2,
-                    Number = _encryptDecryptString.EncryptString("2589445521459856"),
-                    CreditLimit = 700,
-                    AvailableBalance = 700
-                });
+                .HasForeignKey(c => c.HolderId);                        
         }
     }
 }

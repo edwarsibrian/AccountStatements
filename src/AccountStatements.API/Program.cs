@@ -59,4 +59,6 @@ app.MapHealthChecks(pattern: "/health");
 
 app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
 
+DataGenerator.Initialize(app.Services);
+
 app.Run();
