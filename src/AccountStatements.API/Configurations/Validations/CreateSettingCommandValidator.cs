@@ -1,7 +1,7 @@
-﻿using AccountStatements.API.Commands;
+﻿using AccountStatements.Domain.Commands;
 using FluentValidation;
 
-namespace AccountStatements.API.Configurations.Validations
+namespace AccountStatements.Domain.Configurations.Validations
 {
     public class CreateSettingCommandValidator : AbstractValidator<CreateSettingCommand>
     {

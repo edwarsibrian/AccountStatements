@@ -1,8 +1,7 @@
-﻿using AccountStatements.Domain.Entities;
+﻿using AccountStatements.Repository.Entities;
 using MediatR;
-using Microsoft.Extensions.Options;
 
-namespace AccountStatements.API.Commands
+namespace AccountStatements.Domain.Commands
 {
     public class CreateSettingCommand : IRequest<Setting>
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AccountStatements.Domain.Entities
+namespace AccountStatements.Repository.Entities
 {
     public class Charge
     {
@@ -18,6 +18,10 @@ namespace AccountStatements.Domain.Entities
 
         [Required]
         public decimal Amount { get; set; }
+
+        [Required]
+        [ForeignKey("CreditCard")]
+        public int CreditCardId { get; set; }
 
         public CreditCard CreditCard { get; set; }
     }

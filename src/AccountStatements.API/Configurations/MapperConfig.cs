@@ -1,9 +1,8 @@
-﻿using AccountStatements.API.Commands;
-using AccountStatements.API.Queries;
-using AccountStatements.Domain.Entities;
+﻿using AccountStatements.Domain.Commands;
+using AccountStatements.Repository.Entities;
 using AutoMapper;
 
-namespace AccountStatements.API.Configurations
+namespace AccountStatements.Domain.Configurations
 {
     public class MapperConfig : Profile
     {

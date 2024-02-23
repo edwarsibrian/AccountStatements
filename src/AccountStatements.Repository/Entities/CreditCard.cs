@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AccountStatements.Domain.Entities
+namespace AccountStatements.Repository.Entities
 {
     public class CreditCard
     {
@@ -9,6 +9,10 @@ namespace AccountStatements.Domain.Entities
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
+        [ForeignKey("Holder")]
+        public int HolderId { get; set; }
 
         [Required]
         public string Number { get; set; }

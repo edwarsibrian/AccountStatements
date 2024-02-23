@@ -1,8 +1,8 @@
-﻿using AccountStatements.Domain.Entities;
+﻿using AccountStatements.Repository.Entities;
 
-namespace AccountStatements.Domain.Repositories
+namespace AccountStatements.Repository.Interfaces
 {
-    public interface ISettingRepository
+    public interface ISettingService
     {
         Task<Setting> Get();
         Task<bool> Update(int id, decimal interestPct, decimal minBalancePct);

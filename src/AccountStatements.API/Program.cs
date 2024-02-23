@@ -1,10 +1,12 @@
-using AccountStatements.API.Configurations;
-using AccountStatements.API.Configurations.IoC;
-using AccountStatements.API.Configurations.Middleware;
-using AccountStatements.API.Configurations.PipelineBehaviors;
-using AccountStatements.API.Configurations.Validations;
-using AccountStatements.Domain;
-using AccountStatements.Domain.Repositories;
+using AccountStatements.Domain.Configurations;
+using AccountStatements.Domain.Configurations.Middleware;
+using AccountStatements.Domain.Configurations.PipelineBehaviors;
+using AccountStatements.Domain.Configurations.Validations;
+using AccountStatements.Domain.Handlers;
+using AccountStatements.Repository;
+using AccountStatements.Repository.Interfaces;
+using AccountStatements.Repository.Services;
+using AccountStatements.Repository.Utils;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +25,7 @@ builder.Services.AddHealthChecks();
 //Add Mediator (CQRS)
 builder.Services.AddMediatR(cfg =>
 {
-    cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+    cfg.RegisterServicesFromAssemblyContaining<CreateSettingHandler>();
     cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
 
@@ -39,8 +41,12 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 builder.Services.AddDbContextFactory<AccountStatementsContext>(options =>
     options.UseInMemoryDatabase(databaseName: "AccountsStatements"));
+//builder.Services.AddDbContextFactory<AccountStatementsContext>(opt =>
+//    opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AccountsStatements"));
 
-builder.Services.AddScoped<ISettingRepository, SettingRepository>();
+builder.Services.AddScoped<ISettingService, SettingService>();
+builder.Services.AddSingleton<IApplicationConfigManager, ApplicationConfigManager>();
+builder.Services.AddSingleton<IEncryptDecryptString, EncryptDecryptString>();
 
 
 var app = builder.Build();

@@ -1,4 +1,4 @@
-namespace AccountStatements.API
+namespace AccountStatements.Domain
 {
     public class WeatherForecast
     {

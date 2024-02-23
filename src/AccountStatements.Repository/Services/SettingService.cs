@@ -1,13 +1,14 @@
-﻿using AccountStatements.Domain.Entities;
+﻿using AccountStatements.Repository.Entities;
+using AccountStatements.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace AccountStatements.Domain.Repositories
+namespace AccountStatements.Repository.Services
 {
-    public class SettingRepository : ISettingRepository
+    public class SettingService : ISettingService
     {
         private AccountStatementsContext _context;
 
-        public SettingRepository(AccountStatementsContext context)
+        public SettingService(AccountStatementsContext context)
         {
             _context = context;
         }

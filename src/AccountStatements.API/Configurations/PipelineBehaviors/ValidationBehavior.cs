@@ -3,7 +3,7 @@ using FluentValidation.Results;
 using MediatR;
 using System.Windows.Input;
 
-namespace AccountStatements.API.Configurations.PipelineBehaviors
+namespace AccountStatements.Domain.Configurations.PipelineBehaviors
 {
     public class ValidationBehavior<TRequest, TResponse>
      : IPipelineBehavior<TRequest, TResponse>

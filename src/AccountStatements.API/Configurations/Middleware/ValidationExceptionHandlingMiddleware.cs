@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace AccountStatements.API.Configurations.Middleware
+namespace AccountStatements.Domain.Configurations.Middleware
 {
     public sealed class ValidationExceptionHandlingMiddleware
     {

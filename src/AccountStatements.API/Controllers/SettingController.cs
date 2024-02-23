@@ -1,11 +1,11 @@
-﻿using AccountStatements.API.Commands;
-using AccountStatements.API.Queries;
-using AccountStatements.Domain.Entities;
+﻿using AccountStatements.Domain.Commands;
+using AccountStatements.Domain.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AccountStatements.Repository.Entities;
 
-namespace AccountStatements.API.Controllers
+namespace AccountStatements.Domain.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
