@@ -7,6 +7,7 @@ using AccountStatements.Domain.Handlers;
 using AccountStatements.Repository;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,7 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssemblyContaining<CreateSettingHandler>();
     cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 //Add FluentValidation
 builder.Services.AddValidatorsFromAssemblyContaining<CreateSettingCommandValidator>(); // register validators
@@ -57,7 +59,7 @@ app.MapControllers();
 
 app.MapHealthChecks(pattern: "/health");
 
-app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
+app.UseExceptionHandler();
 
 DataGenerator.Initialize(app.Services);
 
