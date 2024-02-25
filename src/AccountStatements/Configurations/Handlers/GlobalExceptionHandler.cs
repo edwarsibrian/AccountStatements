@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AccountStatements.API.Configurations.Handlers
+namespace AccountStatements.Configurations.Handlers
 {
     public class GlobalExceptionHandler : IExceptionHandler
     {
@@ -19,7 +19,8 @@ namespace AccountStatements.API.Configurations.Handlers
             var problemDetails = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
-                Type = "Server Error"
+                Type = "Server Error",
+                Detail = exception.Message
             };
 
             httpContext.Response.StatusCode = problemDetails.Status.Value;

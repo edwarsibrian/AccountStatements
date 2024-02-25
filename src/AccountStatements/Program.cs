@@ -1,4 +1,5 @@
-using AccountStatements.API.Configurations.Handlers;
+using AccountStatements.Configurations;
+using AccountStatements.Configurations.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddHealthChecks();
 //Global Exception
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+builder.Services.HttpClientFactoryConfigure(builder.Configuration);
 
 var app = builder.Build();
 
