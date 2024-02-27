@@ -23,12 +23,14 @@ namespace AccountStatements.Repository
                     new Holder
                     {
                         Id = 1,
-                        Name = "Edwar Morales"
+                        Name = "Edwar",
+                        FamilyName = "Morales"
                     },
                     new Holder
                     {
                         Id = 2,
-                        Name = "Juan Perez"
+                        Name = "Juan",
+                        FamilyName = "Perez"
                     });
                 context.SaveChanges();
 

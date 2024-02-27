@@ -1,8 +1,42 @@
-﻿@{
-    ViewData["Title"] = "Proyecto";
+﻿@model IEnumerable<CreditCardsList>
+
+@{
+    ViewData["Title"] = "TC";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <h2>Listado de Tarjetas</h2>
+    <form class="form-inline">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="auto">N&uacute;mero de Tarjeta</th>
+                    <th scope="auto">Nombres</th>
+                    <th scope="auto">Apellidos</th>
+                    <th scope="auto">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CardNumber</td>
+                            <td>@item.Name</td>
+                            <td>@item.FamilyName</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a asp-action="BankStatement" asp-route-id="@item.Id" class="btn btn-primary">Estado de Cuenta</a> @* Add all buttons, pagination and search bar *@
+                                    <a asp-action="BuyRegister" asp-route-id="@item.Id" class="btn btn-success">Registrar Compra</a>
+                                    <a asp-action="PayRegister" asp-route-id="@item.Id" class="btn btn-info">Registrar Pago</a>
+                                    <a asp-action="Transactions" asp-route-id="@item.Id" class="btn btn-secondary">Transacciones</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </form>
 </div>

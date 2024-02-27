@@ -10,5 +10,6 @@ namespace AccountStatements.Repository.Interfaces
     public interface ICreditCardService
     {
         Task<List<CreditCard>> GetCreditCards();
+        Task<List<Holder>> GetHoldersWithCreditCards();
     }
 }
