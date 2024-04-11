@@ -1,13 +1,14 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
+using Microsoft.AspNetCore.Diagnostics;
 using System.Windows.Input;
 
 namespace AccountStatements.Domain.Configurations.PipelineBehaviors
 {
     public class ValidationBehavior<TRequest, TResponse>
      : IPipelineBehavior<TRequest, TResponse>
-     where TRequest : ICommand
+     where TRequest : IRequest<TResponse>, IExceptionHandler
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 

@@ -13,6 +13,9 @@ namespace AccountStatements.Repository.Entities
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string FamilyName { get; set; }
+
         [NotMapped]
         public IEnumerable<CreditCard> CreditCards { get; set;}
     }

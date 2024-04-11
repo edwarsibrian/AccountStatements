@@ -2,11 +2,6 @@
 using AccountStatements.Repository.Interfaces;
 using AccountStatements.Repository.Utils;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccountStatements.Repository.Services
 {
@@ -23,11 +18,22 @@ namespace AccountStatements.Repository.Services
 
         public async Task<List<CreditCard>> GetCreditCards()
         {
-            var creditCards = await _context.CreditCards.ToListAsync();
+            var creditCards = await _context.CreditCards.Include("Holder").ToListAsync();
 
             creditCards.ForEach(cc => cc.Number = _encryptDecryptString.DecryptString(cc.Number));
 
             return creditCards;
+        }
+
+        public async Task<List<Holder>> GetHoldersWithCreditCards()
+        {
+            var holderAndCC = await _context.Holders.Include("CreditCards").ToListAsync();
+
+            holderAndCC.ForEach(h =>
+                h.CreditCards.ToList().ForEach(cc =>
+                cc.Number = _encryptDecryptString.DecryptString(cc.Number)));
+
+            return holderAndCC;
         }
     }
 }
